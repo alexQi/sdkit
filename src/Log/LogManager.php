@@ -28,6 +28,11 @@ use function sprintf;
  */
 class LogManager implements LoggerInterface
 {
+    const DEFAULT_CHANNEL = [
+        'driver' => 'single',
+        'stream' => 'php://stdout',
+        'level'  => 'debug',
+    ];
     /**
      * @var ServiceContainer
      */
@@ -170,7 +175,10 @@ class LogManager implements LoggerInterface
      */
     protected function resolve($name)
     {
-        $config = $this->app->config->get(sprintf('log.channels.%s', $name));
+        $config = $this->app->config->get(
+            sprintf('log.channels.%s', $name),
+            self::DEFAULT_CHANNEL
+        );
 
         if (is_null($config)) {
             throw new InvalidArgumentException(
