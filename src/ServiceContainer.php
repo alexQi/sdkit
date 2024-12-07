@@ -124,7 +124,7 @@ class ServiceContainer
      *
      * @param array $providers 服务提供者类名数组
      */
-    protected function registerProviders(array $providers): void
+    public function registerProviders(array $providers): void
     {
         foreach ($providers as $provider) {
             (new $provider())->register($this);
